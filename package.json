@@ -1,0 +1,26 @@
+{
+  "name": "telegram-bot",
+  "version": "0.0.1",
+  "description": "Baby feeding reminder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kargalskaya/telegram-bot.git"
+  },
+  "keywords": [],
+  "author": "kargalskaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kargalskaya/telegram-bot/issues"
+  },
+  "homepage": "https://github.com/kargalskaya/telegram-bot#readme",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "0.51.0"
+  }
+}
