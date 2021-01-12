@@ -1,32 +1,20 @@
 const TelegramBot = require('node-telegram-bot-api');
+const CronJob = require('cron').CronJob;
 
 const bot = new TelegramBot('1567243704:AAG4i5Mu2Ki-pVfvkfA1x4fqMJr0v3F0B1k', { polling: true });
-const hours = {
-	'3_hours': '3 часа',
-	'2_5_hours': '2.5 часа',
-	'2_hours': '2 часа',
-};
-const keyboard = [
-  [
-    {
-      text: 'Напомнить через 3 часа',
-      callback_data: '3_hours'
-    }
-  ],
-  [
-    {
-      text: 'Напомнить через 2.5 часа',
-      callback_data: '2_5_hours'
-    }
-  ],
-  [
-    {
-      text: 'Напомнить через 2 часа',
-      callback_data: '2_hours'
-    }
-  ]
+
+
+const hours = [
+	['1 минуту', 1],
+	['3 часа', 180],
+	['2.5 часа', 150],
+	['2 часа', 120],
+	['1.5 часа', 90],
 ];
 
+const keyboard = hours.map(item => ([{ text: `Напомнить через ${item[0]}.`, callback_data: `${item[1]}` }]));
+
+console.log(keyboard)
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 	
@@ -35,14 +23,13 @@ bot.on('message', (msg) => {
 			inline_keyboard: keyboard
 		}
 	});
-
 });
 
 bot.on('callback_query', (query) => {
   const chatId = query.message.chat.id;
-
-	console.warn(query.data)
 	if (query.data) {
-		bot.sendMessage(chatId, `OK, напомню через ${hours[query.data]}.`);
+		setTimeout(() => {
+			bot.sendMessage(chatId, `Пора кормить!`);
+		}, query.data * 60 * 1000);
 	}
 });
